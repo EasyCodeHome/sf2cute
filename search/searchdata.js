@@ -7,7 +7,8 @@ var indexSectionsWithContent =
   4: "ghklmruv",
   5: "s",
   6: "o",
-  7: "s"
+  7: "s",
+  8: "s"
 };
 
 var indexSectionNames =
@@ -19,7 +20,8 @@ var indexSectionNames =
   4: "variables",
   5: "enums",
   6: "related",
-  7: "defines"
+  7: "defines",
+  8: "pages"
 };
 
 var indexSectionLabels =
@@ -31,6 +33,7 @@ var indexSectionLabels =
   4: "Variables",
   5: "Enumerations",
   6: "Friends",
-  7: "Macros"
+  7: "Macros",
+  8: "Pages"
 };
 

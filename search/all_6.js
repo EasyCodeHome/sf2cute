@@ -1,11 +1,11 @@
 var searchData=
 [
   ['genamounttype',['GenAmountType',['../unionsf2cute_1_1_gen_amount_type.html',1,'sf2cute']]],
-  ['genamounttype',['GenAmountType',['../unionsf2cute_1_1_gen_amount_type.html#a6877a46485f82cba5fd1563363b0c9c2',1,'sf2cute::GenAmountType::GenAmountType()'],['../unionsf2cute_1_1_gen_amount_type.html#a38a3ae11468661cbbb9c726e4f32597d',1,'sf2cute::GenAmountType::GenAmountType(RangesType range)'],['../unionsf2cute_1_1_gen_amount_type.html#a42bcd2bb9605bca2a890763a3bd8542e',1,'sf2cute::GenAmountType::GenAmountType(int16_t value)']]],
-  ['general_5fcontroller',['general_controller',['../classsf2cute_1_1_s_f_modulator.html#a488d44d11c21a5dbdd8c01fd7ce3382b',1,'sf2cute::SFModulator']]],
+  ['genamounttype',['GenAmountType',['../unionsf2cute_1_1_gen_amount_type.html#a51a156bf5c71955d79afaeff720a608f',1,'sf2cute::GenAmountType::GenAmountType() noexcept'],['../unionsf2cute_1_1_gen_amount_type.html#ac3050f4436b2a287e1e9a279bbf1a6d1',1,'sf2cute::GenAmountType::GenAmountType(RangesType range) noexcept'],['../unionsf2cute_1_1_gen_amount_type.html#a85c85126b631653f773f112ae70504de',1,'sf2cute::GenAmountType::GenAmountType(int16_t value) noexcept']]],
+  ['general_5fcontroller',['general_controller',['../classsf2cute_1_1_s_f_modulator.html#a7a05800a49489f9a7ca5c453cc26570d',1,'sf2cute::SFModulator']]],
   ['generator_5fitem_2ehpp',['generator_item.hpp',['../generator__item_8hpp.html',1,'']]],
-  ['generators',['generators',['../classsf2cute_1_1_s_f_zone.html#a8ed50bf8e9ba0113ed3c0f49753ff2d9',1,'sf2cute::SFZone']]],
+  ['generators',['generators',['../classsf2cute_1_1_s_f_zone.html#af75b2a800e9e43eb5d3d816407092b88',1,'sf2cute::SFZone']]],
   ['generators_5f',['generators_',['../classsf2cute_1_1_s_f_zone.html#ace5fc9d3fb55b64d7db800728c9f1d0f',1,'sf2cute::SFZone']]],
-  ['genre',['genre',['../classsf2cute_1_1_s_f_preset.html#a83fcad1657f1c86f7fb3b59ed9bd3471',1,'sf2cute::SFPreset']]],
-  ['global_5fzone',['global_zone',['../classsf2cute_1_1_s_f_instrument.html#a0add66b72bea2777d76f924ae41611af',1,'sf2cute::SFInstrument::global_zone()'],['../classsf2cute_1_1_s_f_preset.html#ab982e80fc01305f9740aa3a94457b46b',1,'sf2cute::SFPreset::global_zone()']]]
+  ['genre',['genre',['../classsf2cute_1_1_s_f_preset.html#afa987ffa3de5be84f91818c4502694a4',1,'sf2cute::SFPreset']]],
+  ['global_5fzone',['global_zone',['../classsf2cute_1_1_s_f_instrument.html#a84a8e01caccafed4d6dc3f7353e5e783',1,'sf2cute::SFInstrument::global_zone()'],['../classsf2cute_1_1_s_f_preset.html#a81af02252ff8d65ded342d5bb9baa867',1,'sf2cute::SFPreset::global_zone()']]]
 ];

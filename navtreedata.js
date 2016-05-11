@@ -1,6 +1,7 @@
 var NAVTREE =
 [
   [ "SF2cute", "index.html", [
+    [ "SF2cute: C++ Library for SoundFont 2", "index.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -25,8 +26,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"classsf2cute_1_1_sound_font.html#a07d6bc5a9ac2b15c79e69b6b7c6fa59f",
-"types_8hpp.html#a23c1c0aad1e7616ccb012c742e9e3874abc16a62ec412b557ff8232f0ee21ace0"
+"classsf2cute_1_1_sound_font.html#a0ed9acabd7e1f04bbb9bab95893d1e65",
+"types_8hpp.html#a23c1c0aad1e7616ccb012c742e9e3874abbc2da4af9b736dc45555285598b5f84"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
