@@ -13,13 +13,14 @@ var dir_9a3abfbffb54adcecd93fe76762d71f9 =
       [ "SFInstrumentZone", "classsf2cute_1_1_s_f_instrument_zone.html", "classsf2cute_1_1_s_f_instrument_zone" ]
     ] ],
     [ "modulator.hpp", "modulator_8hpp.html", [
-      [ "SFModulator", "classsf2cute_1_1_s_f_modulator.html", "classsf2cute_1_1_s_f_modulator" ]
-    ] ],
-    [ "modulator_identifier.hpp", "modulator__identifier_8hpp.html", [
-      [ "SFModulatorIdentifier", "classsf2cute_1_1_s_f_modulator_identifier.html", "classsf2cute_1_1_s_f_modulator_identifier" ]
+      [ "SFModulator", "classsf2cute_1_1_s_f_modulator.html", "classsf2cute_1_1_s_f_modulator" ],
+      [ "hash< sf2cute::SFModulator >", "structstd_1_1hash_3_01sf2cute_1_1_s_f_modulator_01_4.html", "structstd_1_1hash_3_01sf2cute_1_1_s_f_modulator_01_4" ]
     ] ],
     [ "modulator_item.hpp", "modulator__item_8hpp.html", [
       [ "SFModulatorItem", "classsf2cute_1_1_s_f_modulator_item.html", "classsf2cute_1_1_s_f_modulator_item" ]
+    ] ],
+    [ "modulator_key.hpp", "modulator__key_8hpp.html", [
+      [ "SFModulatorKey", "classsf2cute_1_1_s_f_modulator_key.html", "classsf2cute_1_1_s_f_modulator_key" ]
     ] ],
     [ "preset.hpp", "preset_8hpp.html", [
       [ "SFPreset", "classsf2cute_1_1_s_f_preset.html", "classsf2cute_1_1_s_f_preset" ]

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zones',['zones',['../classsf2cute_1_1_s_f_instrument.html#a3982428cb6430249a5839cfe8b805cb9',1,'sf2cute::SFInstrument::zones()'],['../classsf2cute_1_1_s_f_preset.html#a0fd7e8e67fe7129495070ca841d77133',1,'sf2cute::SFPreset::zones()']]]
+  ['write',['Write',['../classsf2cute_1_1_sound_font.html#a56483398db7d6b82cf75b9a1c49928d9',1,'sf2cute::SoundFont::Write(const std::string &amp;filename)'],['../classsf2cute_1_1_sound_font.html#a072be2c94b79584ee3320cc375e35497',1,'sf2cute::SoundFont::Write(std::ostream &amp;out)']]]
 ];

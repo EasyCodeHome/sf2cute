@@ -3,6 +3,7 @@ var types_8hpp =
     [ "RangesType", "structsf2cute_1_1_ranges_type.html", "structsf2cute_1_1_ranges_type" ],
     [ "GenAmountType", "unionsf2cute_1_1_gen_amount_type.html", "unionsf2cute_1_1_gen_amount_type" ],
     [ "SFVersionTag", "structsf2cute_1_1_s_f_version_tag.html", "structsf2cute_1_1_s_f_version_tag" ],
+    [ "hash< sf2cute::SFVersionTag >", "structstd_1_1hash_3_01sf2cute_1_1_s_f_version_tag_01_4.html", "structstd_1_1hash_3_01sf2cute_1_1_s_f_version_tag_01_4" ],
     [ "SampleMode", "types_8hpp.html#aba677b10e5b406f9a92f99323fefc752", [
       [ "kNoLoop", "types_8hpp.html#aba677b10e5b406f9a92f99323fefc752a3f728fd10b6dfbbde7a92a7a5fe3e491", null ],
       [ "kLoopContinuously", "types_8hpp.html#aba677b10e5b406f9a92f99323fefc752a2ebd8c72a4dc2d276a1ec32a9fba16ff", null ],

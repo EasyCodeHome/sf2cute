@@ -15,5 +15,7 @@ var searchData=
   ['has_5from_5fversion',['has_rom_version',['../classsf2cute_1_1_sound_font.html#a93afadc438cead6b2f5fd70738c48af9',1,'sf2cute::SoundFont']]],
   ['has_5fsample',['has_sample',['../classsf2cute_1_1_s_f_instrument_zone.html#a5b9d8bb77a863d984fabf225099edbff',1,'sf2cute::SFInstrumentZone']]],
   ['has_5fsoftware',['has_software',['../classsf2cute_1_1_sound_font.html#a3c62f908953219314dd70f9605d1a44c',1,'sf2cute::SoundFont']]],
+  ['hash_3c_20sf2cute_3a_3asfmodulator_20_3e',['hash&lt; sf2cute::SFModulator &gt;',['../structstd_1_1hash_3_01sf2cute_1_1_s_f_modulator_01_4.html',1,'std']]],
+  ['hash_3c_20sf2cute_3a_3asfversiontag_20_3e',['hash&lt; sf2cute::SFVersionTag &gt;',['../structstd_1_1hash_3_01sf2cute_1_1_s_f_version_tag_01_4.html',1,'std']]],
   ['hi',['hi',['../structsf2cute_1_1_ranges_type.html#a3661de6f78ddaa3de60142c516857191',1,'sf2cute::RangesType']]]
 ];
