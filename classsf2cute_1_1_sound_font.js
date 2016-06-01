@@ -64,5 +64,6 @@ var classsf2cute_1_1_sound_font =
     [ "software", "classsf2cute_1_1_sound_font.html#afa81a203999cb9d7f0afba1ff09fbab2", null ],
     [ "sound_engine", "classsf2cute_1_1_sound_font.html#abea0d9dbe382f719f47f6a945661dffd", null ],
     [ "Write", "classsf2cute_1_1_sound_font.html#a56483398db7d6b82cf75b9a1c49928d9", null ],
-    [ "Write", "classsf2cute_1_1_sound_font.html#a072be2c94b79584ee3320cc375e35497", null ]
+    [ "Write", "classsf2cute_1_1_sound_font.html#a072be2c94b79584ee3320cc375e35497", null ],
+    [ "Write", "classsf2cute_1_1_sound_font.html#a1d956abb830b12cce4997d889af6b7b9", null ]
 ];
