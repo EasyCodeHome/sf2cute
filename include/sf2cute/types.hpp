@@ -479,12 +479,12 @@ struct SFVersionTag {
   friend std::ostream & operator<<(
       std::ostream & out,
       const SFVersionTag & version) {
-    return out << version.to_string();
+    return out << version.str();
   }
 
   /// Returns a string represents the version.
   /// @return a string representation of the version.
-  std::string to_string() const {
+  std::string str() const {
     std::ostringstream string_builder;
     string_builder << major_version << "." << minor_version;
     return string_builder.str();
