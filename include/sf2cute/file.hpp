@@ -183,7 +183,7 @@ public:
 
   /// Returns the target sound engine.
   /// @return the target sound engine name.
-  const std::string & sound_engine() const noexcept {
+  std::string sound_engine() const {
     return sound_engine_;
   }
 
@@ -195,7 +195,7 @@ public:
 
   /// Returns the SoundFont bank name.
   /// @return the SoundFont bank name.
-  const std::string & bank_name() const noexcept {
+  std::string bank_name() const {
     return bank_name_;
   }
 
@@ -213,7 +213,7 @@ public:
 
   /// Returns the Sound ROM name.
   /// @return the Sound ROM name.
-  const std::string & rom_name() const noexcept {
+  std::string rom_name() const {
     return rom_name_;
   }
 
@@ -260,7 +260,7 @@ public:
 
   /// Returns the date of creation of the bank.
   /// @return the date of creation of the bank.
-  const std::string & creation_date() const noexcept {
+  std::string creation_date() const {
     return creation_date_;
   }
 
@@ -283,7 +283,7 @@ public:
 
   /// Returns the sound designers and engineers for the bank.
   /// @return the sound designers and engineers for the bank.
-  const std::string & engineers() const noexcept {
+  std::string engineers() const {
     return engineers_;
   }
 
@@ -306,7 +306,7 @@ public:
 
   /// Returns the product name for which the bank was intended.
   /// @return the product name for which the bank was intended.
-  const std::string & product() const noexcept {
+  std::string product() const {
     return product_;
   }
 
@@ -329,7 +329,7 @@ public:
 
   /// Returns the copyright message.
   /// @return the copyright message.
-  const std::string & copyright() const noexcept {
+  std::string copyright() const {
     return copyright_;
   }
 
@@ -352,7 +352,7 @@ public:
 
   /// Returns the comments on the bank.
   /// @return the comments on the bank.
-  const std::string & comment() const noexcept {
+  std::string comment() const {
     return comment_;
   }
 
@@ -375,7 +375,7 @@ public:
 
   /// Returns the SoundFont tools used to create and alter the bank.
   /// @return the SoundFont tools used to create and alter the bank.
-  const std::string & software() const noexcept {
+  std::string software() const {
     return software_;
   }
 
@@ -394,6 +394,9 @@ public:
   /// @param filename the name of the file to write to.
   /// @throws std::logic_error The SoundFont has a structural error.
   /// @throws std::ios_base::failure An I/O error occurred.
+  void Write(const char * filename);
+
+  /// @copydoc SoundFont::Write(const char *)
   void Write(const std::string & filename);
 
   /// Writes the SoundFont to an output stream.

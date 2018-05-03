@@ -111,7 +111,7 @@ public:
 
   /// Returns the name of this sample.
   /// @return the name of this sample.
-  const std::string & name() const noexcept {
+  std::string name() const {
     return name_;
   }
 

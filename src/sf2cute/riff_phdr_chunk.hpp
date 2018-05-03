@@ -106,7 +106,7 @@ private:
   /// @return the output stream.
   /// @throws std::ios_base::failure An I/O error occurred.
   static std::ostream & WriteItem(std::ostream & out,
-      const std::string & name,
+      std::string name,
       uint16_t preset_number,
       uint16_t bank,
       uint16_t preset_bag_index,

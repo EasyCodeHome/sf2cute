@@ -68,6 +68,9 @@ public:
 
   /// Writes the SoundFont to a file.
   /// @param filename the name of the file to write to.
+  void Write(const char * filename);
+
+  /// @copydoc SoundFontWriter::Write(const char *)
   void Write(const std::string & filename);
 
   /// Writes the SoundFont to an output stream.

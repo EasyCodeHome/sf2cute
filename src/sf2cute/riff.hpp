@@ -124,7 +124,7 @@ public:
   /// @throws std::length_error The chunk size exceeds the maximum.
   /// @throws std::ios_base::failure An I/O error occurred.
   static void WriteHeader(std::ostream & out,
-      const std::string & name,
+      std::string name,
       size_type size);
 
 private:
@@ -216,7 +216,7 @@ public:
   /// @throws std::length_error The chunk size exceeds the maximum.
   /// @throws std::ios_base::failure An I/O error occurred.
   static void WriteHeader(std::ostream & out,
-      const std::string & name,
+      std::string name,
       size_type size);
 
 private:
@@ -311,7 +311,7 @@ public:
   /// @throws std::length_error The chunk size exceeds the maximum.
   /// @throws std::ios_base::failure An I/O error occurred.
   static void WriteHeader(std::ostream & out,
-      const std::string & name,
+      std::string name,
       size_type size);
 
 private:

@@ -88,13 +88,14 @@ uint16_t SFRIFFInstChunk::NumItems() const {
 
 /// Writes an item of inst chunk.
 std::ostream & SFRIFFInstChunk::WriteItem(std::ostream & out,
-    const std::string & name,
+    std::string name,
     uint16_t inst_bag_index) {
   // struct sfInst:
   // char achInstName[20];
-  std::string instrument_name(name.substr(0, SFInstrument::kMaxNameLength));
-  out.write(instrument_name.data(), instrument_name.size());
-  for (std::string::size_type i = 0; i < SFInstrument::kMaxNameLength + 1 - instrument_name.size(); i++) {
+  constexpr std::string::size_type kMaxNameLength = SFInstrument::kMaxNameLength;
+  std::string::size_type name_length = std::min(name.size(), kMaxNameLength);
+  out.write(name.data(), name_length);
+  for (std::string::size_type i = name_length; i < kMaxNameLength + 1; i++) {
     out.put(0);
   }
 

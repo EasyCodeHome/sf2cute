@@ -6,6 +6,7 @@
 #include "riff_shdr_chunk.hpp"
 
 #include <stdint.h>
+#include <algorithm>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -116,14 +117,15 @@ uint16_t SFRIFFShdrChunk::NumItems() const {
 
 /// Writes an item of shdr chunk.
 std::ostream & SFRIFFShdrChunk::WriteItem(std::ostream & out,
-    const std::string & name, uint32_t start, uint32_t end,
+    std::string name, uint32_t start, uint32_t end,
     uint32_t start_loop, uint32_t end_loop, uint32_t sample_rate,
     uint8_t original_key, int8_t correction, uint16_t link, SFSampleLink type) {
   // struct sfSample:
   // char achSampleName[20];
-  std::string sample_name(name.substr(0, SFSample::kMaxNameLength));
-  out.write(sample_name.data(), sample_name.size());
-  for (std::string::size_type i = 0; i < SFSample::kMaxNameLength + 1 - sample_name.size(); i++) {
+  constexpr std::string::size_type kMaxNameLength = SFSample::kMaxNameLength;
+  std::string::size_type name_length = std::min(name.size(), kMaxNameLength);
+  out.write(name.data(), name_length);
+  for (std::string::size_type i = name_length; i < kMaxNameLength + 1; i++) {
     out.put(0);
   }
 

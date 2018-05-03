@@ -6,6 +6,7 @@
 #include "riff_phdr_chunk.hpp"
 
 #include <stdint.h>
+#include <algorithm>
 #include <memory>
 #include <string>
 #include <sstream>
@@ -89,7 +90,7 @@ uint16_t SFRIFFPhdrChunk::NumItems() const {
 
 /// Writes an item of phdr chunk.
 std::ostream & SFRIFFPhdrChunk::WriteItem(std::ostream & out,
-    const std::string & name,
+    std::string name,
     uint16_t preset_number,
     uint16_t bank,
     uint16_t preset_bag_index,
@@ -98,9 +99,10 @@ std::ostream & SFRIFFPhdrChunk::WriteItem(std::ostream & out,
     uint32_t morphology) {
   // struct sfPresetHeader:
   // char achPresetName[20];
-  std::string preset_name(name.substr(0, SFPreset::kMaxNameLength));
-  out.write(preset_name.data(), preset_name.size());
-  for (std::string::size_type i = 0; i < SFPreset::kMaxNameLength + 1 - preset_name.size(); i++) {
+  constexpr std::string::size_type kMaxNameLength = SFPreset::kMaxNameLength;
+  std::string::size_type name_length = std::min(name.size(), kMaxNameLength);
+  out.write(name.data(), name_length);
+  for (std::string::size_type i = name_length; i < kMaxNameLength + 1; i++) {
     out.put(0);
   }
 

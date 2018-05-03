@@ -125,7 +125,7 @@ private:
   /// @return the output stream.
   /// @throws std::ios_base::failure An I/O error occurred.
   static std::ostream & WriteItem(std::ostream & out,
-      const std::string & name, uint32_t start, uint32_t end,
+      std::string name, uint32_t start, uint32_t end,
       uint32_t start_loop, uint32_t end_loop, uint32_t sample_rate,
       uint8_t original_key, int8_t correction, uint16_t link, SFSampleLink type);
 

@@ -78,7 +78,7 @@ void RIFFChunk::Write(std::ostream & out) const {
 
 /// Writes a chunk header to the specified output stream.
 void RIFFChunk::WriteHeader(std::ostream & out,
-    const std::string & name,
+    std::string name,
     size_type size) {
   // Throw exception if the chunk size exceeds the maximum.
   if (size > UINT32_MAX) {
@@ -154,7 +154,7 @@ void RIFFListChunk::Write(std::ostream & out) const {
 
 /// Writes a "LIST" chunk header to the specified output stream.
 void RIFFListChunk::WriteHeader(std::ostream & out,
-    const std::string & name,
+    std::string name,
     size_type size) {
   // Throw exception if the chunk size exceeds the maximum.
   if (size > UINT32_MAX) {
@@ -237,7 +237,7 @@ void RIFF::Write(std::ostream & out) const {
 
 /// Writes a "RIFF" chunk header to the specified output stream.
 void RIFF::WriteHeader(std::ostream & out,
-    const std::string & name,
+    std::string name,
     size_type size) {
   // Throw exception if the RIFF file size exceeds the maximum.
   if (size > UINT32_MAX) {

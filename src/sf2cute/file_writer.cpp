@@ -39,13 +39,18 @@ SoundFontWriter::SoundFontWriter(const SoundFont & file) :
 }
 
 /// Writes the SoundFont to a file.
-void SoundFontWriter::Write(const std::string & filename) {
+void SoundFontWriter::Write(const char * filename) {
   std::ofstream out;
 
   out.exceptions(std::ios::badbit | std::ios::failbit);
   out.open(filename, std::ios::binary);
 
   Write(out);
+}
+
+/// Writes the SoundFont to a file.
+void SoundFontWriter::Write(const std::string & filename) {
+  Write(filename.c_str());
 }
 
 /// Writes the SoundFont to an output stream.

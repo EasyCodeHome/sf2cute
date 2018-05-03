@@ -101,7 +101,7 @@ private:
   /// @return the output stream.
   /// @throws std::ios_base::failure An I/O error occurred.
   static std::ostream & WriteItem(std::ostream & out,
-      const std::string & name,
+      std::string name,
       uint16_t inst_bag_index);
 
   /// The size of the chunk (excluding header).

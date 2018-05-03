@@ -375,6 +375,12 @@ void SoundFont::ClearSamples() noexcept {
 }
 
 /// Writes the SoundFont to a file.
+void SoundFont::Write(const char * filename) {
+  SoundFontWriter writer(*this);
+  writer.Write(filename);
+}
+
+/// Writes the SoundFont to a file.
 void SoundFont::Write(const std::string & filename) {
   SoundFontWriter writer(*this);
   writer.Write(filename);

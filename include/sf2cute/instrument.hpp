@@ -82,7 +82,7 @@ public:
 
   /// Returns the name of this instrument.
   /// @return the name of this instrument.
-  const std::string & name() const noexcept {
+  std::string name() const {
     return name_;
   }
 

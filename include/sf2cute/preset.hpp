@@ -100,7 +100,7 @@ public:
 
   /// Returns the name of this preset.
   /// @return the name of this preset.
-  const std::string & name() const noexcept {
+  std::string name() const {
     return name_;
   }
 
