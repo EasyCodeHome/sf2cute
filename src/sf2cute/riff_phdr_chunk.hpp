@@ -55,9 +55,9 @@ public:
   /// Destructs the SFRIFFPhdrChunk.
   virtual ~SFRIFFPhdrChunk() = default;
 
-  /// @copydoc RIFFChunkInterface::name()
-  virtual std::string name() const override {
-    return "phdr";
+  /// @copydoc RIFFChunkInterface::fourcc()
+  virtual FourCC fourcc() const noexcept override {
+    return FourCC("phdr");
   }
 
   /// Returns the presets of this chunk.

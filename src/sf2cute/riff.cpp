@@ -19,35 +19,6 @@
 
 namespace sf2cute {
 
-/// Constructs a new empty RIFFChunk.
-RIFFChunk::RIFFChunk() :
-    name_("    ") {
-}
-
-/// Constructs a new empty RIFFChunk using the specified name.
-RIFFChunk::RIFFChunk(std::string name) {
-  set_name(std::move(name));
-}
-
-/// Constructs a new RIFFChunk using the specified name and data.
-RIFFChunk::RIFFChunk(std::string name, std::vector<char> data) {
-  set_name(std::move(name));
-  set_data(std::move(data));
-}
-
-/// Sets the name of this chunk.
-void RIFFChunk::set_name(std::string name) {
-  // Throw exception if the length of chunk name is not 4.
-  if (name.size() != 4) {
-    std::ostringstream message_builder;
-    message_builder << "Invalid RIFF chunk name \"" << name << "\".";
-    throw std::invalid_argument(message_builder.str());
-  }
-
-  // Set the name.
-  name_ = std::move(name);
-}
-
 /// Writes this chunk to the specified output stream.
 void RIFFChunk::Write(std::ostream & out) const {
   // Save exception bits of output stream.
@@ -57,7 +28,7 @@ void RIFFChunk::Write(std::ostream & out) const {
 
   try {
     // Write the chunk header.
-    WriteHeader(out, name(), data_.size());
+    WriteHeader(out, fourcc(), data_.size());
 
     // Write the chunk data.
     out.write(reinterpret_cast<const char *>(data_.data()), data_.size());
@@ -78,12 +49,12 @@ void RIFFChunk::Write(std::ostream & out) const {
 
 /// Writes a chunk header to the specified output stream.
 void RIFFChunk::WriteHeader(std::ostream & out,
-    std::string name,
+    FourCC fourcc,
     size_type size) {
   // Throw exception if the chunk size exceeds the maximum.
   if (size > UINT32_MAX) {
     std::ostringstream message_builder;
-    message_builder << "RIFF chunk \"" << name << "\" size too large.";
+    message_builder << "RIFF chunk \"" << fourcc << "\" size too large.";
     throw std::length_error(message_builder.str());
   }
 
@@ -93,8 +64,8 @@ void RIFFChunk::WriteHeader(std::ostream & out,
   out.exceptions(std::ios::badbit | std::ios::failbit);
 
   try {
-    // Write the chunk name.
-    out.write(name.data(), name.size());
+    // Write the FourCC.
+    out.write(fourcc.data(), fourcc.size());
 
     // Write the chunk size.
     InsertInt32L(out, static_cast<uint32_t>(size));
@@ -106,29 +77,6 @@ void RIFFChunk::WriteHeader(std::ostream & out,
     // Rethrow the exception.
     throw;
   }
-}
-
-/// Constructs a new empty RIFFListChunk.
-RIFFListChunk::RIFFListChunk() :
-    name_("    ") {
-}
-
-/// Constructs a new empty RIFFListChunk using the specified list type.
-RIFFListChunk::RIFFListChunk(std::string name) {
-  set_name(std::move(name));
-}
-
-/// Sets the form type of this chunk.
-void RIFFListChunk::set_name(std::string name) {
-  // Throw exception if the length of chunk name is not 4.
-  if (name.size() != 4) {
-    std::ostringstream message_builder;
-    message_builder << "Invalid RIFF chunk name \"" << name << "\".";
-    throw std::invalid_argument(message_builder.str());
-  }
-
-  // Set the name.
-  name_ = std::move(name);
 }
 
 /// Appends the specified RIFFChunkInterface to this chunk.
@@ -144,7 +92,7 @@ void RIFFListChunk::ClearSubchunks() {
 /// Writes this chunk to the specified output stream.
 void RIFFListChunk::Write(std::ostream & out) const {
   // Write the chunk header.
-  WriteHeader(out, name(), size() - 8);
+  WriteHeader(out, fourcc(), size() - 8);
 
   // Write each subchunks.
   for (const auto & subchunk : subchunks_) {
@@ -154,12 +102,12 @@ void RIFFListChunk::Write(std::ostream & out) const {
 
 /// Writes a "LIST" chunk header to the specified output stream.
 void RIFFListChunk::WriteHeader(std::ostream & out,
-    std::string name,
+    FourCC fourcc,
     size_type size) {
   // Throw exception if the chunk size exceeds the maximum.
   if (size > UINT32_MAX) {
     std::ostringstream message_builder;
-    message_builder << "RIFF chunk \"" << name << "\" size too large.";
+    message_builder << "RIFF chunk \"" << fourcc << "\" size too large.";
     throw std::length_error(message_builder.str());
   }
 
@@ -176,7 +124,7 @@ void RIFFListChunk::WriteHeader(std::ostream & out,
     InsertInt32L(out, static_cast<uint32_t>(size));
 
     // Write the list type.
-    out.write(name.data(), name.size());
+    out.write(fourcc.data(), fourcc.size());
   }
   catch (const std::exception &) {
     // Recover exception bits of output stream.
@@ -185,29 +133,6 @@ void RIFFListChunk::WriteHeader(std::ostream & out,
     // Rethrow the exception.
     throw;
   }
-}
-
-/// Constructs a new empty RIFF.
-RIFF::RIFF() :
-    name_("    ") {
-}
-
-/// Constructs a new empty RIFF using the specified form type.
-RIFF::RIFF(std::string name) {
-  set_name(std::move(name));
-}
-
-/// Sets the form type of this chunk.
-void RIFF::set_name(std::string name) {
-  // Throw exception if the length of form type is not 4.
-  if (name.size() != 4) {
-    std::ostringstream message_builder;
-    message_builder << "Invalid RIFF form type \"" << name << "\".";
-    throw std::invalid_argument(message_builder.str());
-  }
-
-  // Set the name.
-  name_ = std::move(name);
 }
 
 /// Writes this RIFF to the specified output stream.
@@ -219,7 +144,7 @@ void RIFF::Write(std::ostream & out) const {
 
   try {
     // Write the RIFF header.
-    WriteHeader(out, name(), size() - 8);
+    WriteHeader(out, fourcc(), size() - 8);
 
     // Write each chunks.
     for (const auto & chunk : chunks_) {
@@ -237,7 +162,7 @@ void RIFF::Write(std::ostream & out) const {
 
 /// Writes a "RIFF" chunk header to the specified output stream.
 void RIFF::WriteHeader(std::ostream & out,
-    std::string name,
+    FourCC fourcc,
     size_type size) {
   // Throw exception if the RIFF file size exceeds the maximum.
   if (size > UINT32_MAX) {
@@ -257,7 +182,7 @@ void RIFF::WriteHeader(std::ostream & out,
     InsertInt32L(out, static_cast<uint32_t>(size));
 
     // Write the form type.
-    out.write(name.data(), name.size());
+    out.write(fourcc.data(), fourcc.size());
   }
   catch (const std::exception &) {
     // Recover exception bits of output stream.

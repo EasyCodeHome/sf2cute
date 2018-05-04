@@ -44,7 +44,7 @@ void SFRIFFShdrChunk::Write(std::ostream & out) const {
 
   try {
     // Write the chunk header.
-    RIFFChunk::WriteHeader(out, name(), size_);
+    RIFFChunk::WriteHeader(out, fourcc(), size_);
 
     // Sample headers:
     size_t start_sample = 0;

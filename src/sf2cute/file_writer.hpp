@@ -14,6 +14,8 @@
 #include <sf2cute/types.hpp>
 #include <sf2cute/modulator.hpp>
 
+#include "fourcc.hpp"
+
 namespace sf2cute {
 
 class SFSample;
@@ -94,14 +96,14 @@ private:
   std::unique_ptr<RIFFChunkInterface> MakePdtaListChunk();
 
   /// Make a chunk with a version number.
-  /// @param name the name of the chunk.
+  /// @param fourcc the FourCC of the chunk.
   /// @param version the version number.
-  static std::unique_ptr<RIFFChunkInterface> MakeVersionChunk(std::string name, SFVersionTag version);
+  static std::unique_ptr<RIFFChunkInterface> MakeVersionChunk(FourCC fourcc, SFVersionTag version);
 
   /// Make a chunk with a string.
-  /// @param name the name of the chunk.
+  /// @param fourcc the FourCC of the chunk.
   /// @param data the data string.
-  static std::unique_ptr<RIFFChunkInterface> MakeZSTRChunk(std::string name, std::string data);
+  static std::unique_ptr<RIFFChunkInterface> MakeZSTRChunk(FourCC fourcc, std::string data);
 
   /// The input SoundFont object.
   const SoundFont * file_;

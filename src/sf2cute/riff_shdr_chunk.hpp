@@ -60,9 +60,9 @@ public:
   /// Destructs the SFRIFFShdrChunk.
   virtual ~SFRIFFShdrChunk() = default;
 
-  /// @copydoc RIFFChunkInterface::name()
-  virtual std::string name() const override {
-    return "shdr";
+  /// @copydoc RIFFChunkInterface::fourcc()
+  virtual FourCC fourcc() const noexcept override {
+    return FourCC("shdr");
   }
 
   /// Returns the samples of this chunk.

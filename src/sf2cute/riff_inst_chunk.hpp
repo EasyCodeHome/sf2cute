@@ -55,9 +55,9 @@ public:
   /// Destructs the SFRIFFInstChunk.
   virtual ~SFRIFFInstChunk() = default;
 
-  /// @copydoc RIFFChunkInterface::name()
-  virtual std::string name() const override {
-    return "inst";
+  /// @copydoc RIFFChunkInterface::fourcc()
+  virtual FourCC fourcc() const noexcept override {
+    return FourCC("inst");
   }
 
   /// Returns the instruments of this chunk.

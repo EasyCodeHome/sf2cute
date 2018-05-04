@@ -62,9 +62,9 @@ public:
   /// Destructs the SFRIFFIgenChunk.
   virtual ~SFRIFFIgenChunk() = default;
 
-  /// @copydoc RIFFChunkInterface::name()
-  virtual std::string name() const override {
-    return "igen";
+  /// @copydoc RIFFChunkInterface::fourcc()
+  virtual FourCC fourcc() const noexcept override {
+    return FourCC("igen");
   }
 
   /// Returns the instruments of this chunk.

@@ -55,9 +55,9 @@ public:
   /// Destructs the SFRIFFPbagChunk.
   virtual ~SFRIFFPbagChunk() = default;
 
-  /// @copydoc RIFFChunkInterface::name()
-  virtual std::string name() const override {
-    return "pbag";
+  /// @copydoc RIFFChunkInterface::fourcc()
+  virtual FourCC fourcc() const noexcept override {
+    return FourCC("pbag");
   }
 
   /// Returns the presets of this chunk.

@@ -58,9 +58,9 @@ public:
   /// Destructs the SFRIFFImodChunk.
   virtual ~SFRIFFImodChunk() = default;
 
-  /// @copydoc RIFFChunkInterface::name()
-  virtual std::string name() const override {
-    return "imod";
+  /// @copydoc RIFFChunkInterface::fourcc()
+  virtual FourCC fourcc() const noexcept override {
+    return FourCC("imod");
   }
 
   /// Returns the instruments of this chunk.

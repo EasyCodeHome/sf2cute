@@ -58,9 +58,9 @@ public:
   /// Destructs the SFRIFFPmodChunk.
   virtual ~SFRIFFPmodChunk() = default;
 
-  /// @copydoc RIFFChunkInterface::name()
-  virtual std::string name() const override {
-    return "pmod";
+  /// @copydoc RIFFChunkInterface::fourcc()
+  virtual FourCC fourcc() const noexcept override {
+    return FourCC("pmod");
   }
 
   /// Returns the presets of this chunk.

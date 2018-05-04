@@ -41,7 +41,7 @@ void SFRIFFPmodChunk::Write(std::ostream & out) const {
 
   try {
     // Write the chunk header.
-    RIFFChunk::WriteHeader(out, name(), size_);
+    RIFFChunk::WriteHeader(out, fourcc(), size_);
 
     // Presets:
     for (const auto & preset : presets()) {

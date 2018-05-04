@@ -47,6 +47,7 @@ set(SF2CUTE_PUBLIC_HDRS
 set(SF2CUTE_PRIVATE_HDRS
     src/sf2cute/byteio.hpp
     src/sf2cute/file_writer.hpp
+    src/sf2cute/fourcc.hpp
     src/sf2cute/riff.hpp
     src/sf2cute/riff_ibag_chunk.hpp
     src/sf2cute/riff_igen_chunk.hpp

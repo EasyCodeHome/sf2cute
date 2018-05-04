@@ -50,9 +50,9 @@ public:
   /// Destructs the SFRIFFSmplChunk.
   virtual ~SFRIFFSmplChunk() = default;
 
-  /// @copydoc RIFFChunkInterface::name()
-  virtual std::string name() const override {
-    return "smpl";
+  /// @copydoc RIFFChunkInterface::fourcc()
+  virtual FourCC fourcc() const noexcept override {
+    return FourCC("smpl");
   }
 
   /// Returns the samples of this chunk.

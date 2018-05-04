@@ -8,11 +8,14 @@
 #ifndef SF2CUTE_RIFF_HPP_
 #define SF2CUTE_RIFF_HPP_
 
+#include <utility>
 #include <algorithm>
 #include <memory>
 #include <string>
 #include <vector>
 #include <ostream>
+
+#include "fourcc.hpp"
 
 namespace sf2cute {
 
@@ -25,9 +28,9 @@ public:
   /// Destructs the RIFFChunkInterface.
   virtual ~RIFFChunkInterface() = default;
 
-  /// Returns the name of this chunk.
-  /// @return the name of this chunk.
-  virtual std::string name() const = 0;
+  /// Returns the FourCC of this chunk.
+  /// @return the FourCC of this chunk.
+  virtual FourCC fourcc() const noexcept = 0;
 
   /// Returns the whole length of this chunk.
   /// @return the length of this chunk including a chunk header, in terms of bytes.
@@ -47,18 +50,22 @@ public:
   using size_type = RIFFChunkInterface::size_type;
 
   /// Constructs a new empty RIFFChunk.
-  RIFFChunk();
+  RIFFChunk() {
+  }
 
-  /// Constructs a new empty RIFFChunk using the specified name.
-  /// @param name The name of the chunk (FourCC).
-  /// @throws std::invalid_argument The given name is not a valid FourCC.
-  explicit RIFFChunk(std::string name);
+  /// Constructs a new empty RIFFChunk using the specified FourCC.
+  /// @param fourcc The FourCC of the chunk.
+  explicit RIFFChunk(FourCC fourcc) :
+    fourcc_(std::move(fourcc)) {
+  }
 
-  /// Constructs a new RIFFChunk using the specified name and data.
-  /// @param name The name of the chunk (FourCC).
+  /// Constructs a new RIFFChunk using the specified FourCC and data.
+  /// @param fourcc The FourCC of the chunk.
   /// @param data The data of the chunk.
-  /// @throws std::invalid_argument The given name is not a valid FourCC.
-  RIFFChunk(std::string name, std::vector<char> data);
+  RIFFChunk(FourCC fourcc, std::vector<char> data) :
+    fourcc_(std::move(fourcc)),
+    data_(std::move(data)) {
+  }
 
   /// Constructs a new copy of specified RIFFChunk.
   /// @param origin a RIFFChunk object.
@@ -79,15 +86,16 @@ public:
   /// Destructs the RIFFChunk.
   virtual ~RIFFChunk() = default;
 
-  /// @copydoc RIFFChunkInterface::name()
-  virtual std::string name() const override {
-    return name_;
+  /// @copydoc RIFFChunkInterface::fourcc()
+  virtual FourCC fourcc() const noexcept override {
+    return fourcc_;
   }
 
-  /// Sets the name of this chunk.
-  /// @param name the name of this chunk (FourCC).
-  /// @throws std::invalid_argument The given name is not a valid FourCC.
-  void set_name(std::string name);
+  /// Sets the FourCC of this chunk.
+  /// @param fourcc the FourCC of this chunk.
+  void set_fourcc(FourCC fourcc) noexcept {
+    fourcc_ = std::move(fourcc);
+  }
 
   /// Returns the data of this chunk.
   /// @return the data of this chunk.
@@ -119,17 +127,17 @@ public:
 
   /// Writes a chunk header to the specified output stream.
   /// @param out the output stream.
-  /// @param name the name of the chunk (FourCC).
+  /// @param fourcc the FourCC of the chunk.
   /// @param size the length of the chunk data, in terms of bytes.
   /// @throws std::length_error The chunk size exceeds the maximum.
   /// @throws std::ios_base::failure An I/O error occurred.
   static void WriteHeader(std::ostream & out,
-      std::string name,
+      FourCC fourcc,
       size_type size);
 
 private:
-  /// The name of the chunk.
-  std::string name_;
+  /// The FourCC of the chunk.
+  FourCC fourcc_;
 
   /// The data of the chunk.
   std::vector<char> data_;
@@ -142,12 +150,14 @@ public:
   using size_type = RIFFChunkInterface::size_type;
 
   /// Constructs a new empty RIFFListChunk.
-  RIFFListChunk();
+  RIFFListChunk() {
+  }
 
   /// Constructs a new empty RIFFListChunk using the specified list type.
-  /// @param name The list type of the chunk (FourCC).
-  /// @throws std::invalid_argument The given name is not a valid FourCC.
-  explicit RIFFListChunk(std::string name);
+  /// @param fourcc The list type of the chunk (FourCC).
+  explicit RIFFListChunk(FourCC fourcc) :
+    fourcc_(std::move(fourcc)) {
+  }
 
   /// Constructs a new copy of specified RIFFListChunk.
   /// @param origin a RIFFListChunk object.
@@ -168,17 +178,18 @@ public:
   /// Destructs the RIFFListChunk.
   virtual ~RIFFListChunk() = default;
 
-  /// @copydoc RIFFChunkInterface::name()
-  /// Returns the name of this chunk.
-  /// @return the name of this chunk.
-  virtual std::string name() const override {
-    return name_;
+  /// @copydoc RIFFChunkInterface::fourcc()
+  /// Returns the FourCC of this chunk.
+  /// @return the FourCC of this chunk.
+  virtual FourCC fourcc() const noexcept override {
+    return fourcc_;
   }
 
   /// Sets the list type of this chunk.
-  /// @param name the list type of this chunk (FourCC).
-  /// @throws std::invalid_argument The given name is not a valid FourCC.
-  void set_name(std::string name);
+  /// @param fourcc the list type of this chunk (FourCC).
+  void set_fourcc(FourCC fourcc) noexcept {
+    fourcc_ = std::move(fourcc);
+  }
 
   /// Returns the subchunks of this chunk.
   /// @return a collection of pointers to each RIFFChunkInterface objects.
@@ -211,17 +222,17 @@ public:
 
   /// Writes a "LIST" chunk header to the specified output stream.
   /// @param out the output stream.
-  /// @param name the list type of the chunk (FourCC).
+  /// @param fourcc the list type of the chunk (FourCC).
   /// @param size the length of the chunk data, in terms of bytes.
   /// @throws std::length_error The chunk size exceeds the maximum.
   /// @throws std::ios_base::failure An I/O error occurred.
   static void WriteHeader(std::ostream & out,
-      std::string name,
+      FourCC fourcc,
       size_type size);
 
 private:
-  /// The name of the chunk.
-  std::string name_;
+  /// The FourCC of the chunk.
+  FourCC fourcc_;
 
   /// A collection of pointers to each RIFFChunkInterface objects.
   std::vector<std::unique_ptr<RIFFChunkInterface>> subchunks_;
@@ -234,12 +245,14 @@ public:
   using size_type = RIFFChunkInterface::size_type;
 
   /// Constructs a new empty RIFF.
-  RIFF();
+  RIFF() {
+  }
 
   /// Constructs a new empty RIFF using the specified form type.
-  /// @param name The form type of the chunk (FourCC).
-  /// @throws std::invalid_argument The given name is not a valid FourCC.
-  explicit RIFF(std::string name);
+  /// @param fourcc The form type of the chunk (FourCC).
+  explicit RIFF(FourCC fourcc) :
+    fourcc_(std::move(fourcc)) {
+  }
 
   /// Constructs a new copy of specified RIFF.
   /// @param origin a RIFF object.
@@ -261,15 +274,16 @@ public:
   virtual ~RIFF() = default;
 
   /// Returns the form type of this chunk.
-  /// @return the form type of this chunk.
-  std::string name() const {
-    return name_;
+  /// @return the form type of this chunk (FourCC).
+  FourCC fourcc() const noexcept {
+    return fourcc_;
   }
 
   /// Sets the form type of this chunk.
-  /// @param name the form type of this chunk (FourCC).
-  /// @throws std::invalid_argument The given name is not a valid FourCC.
-  void set_name(std::string name);
+  /// @param fourcc the form type of this chunk (FourCC).
+  void set_fourcc(FourCC fourcc) noexcept {
+    fourcc_ = std::move(fourcc);
+  }
 
   /// Returns the chunks of this RIFF.
   /// @return a collection of pointers to each RIFFChunkInterface objects.
@@ -306,17 +320,17 @@ public:
 
   /// Writes a "RIFF" chunk header to the specified output stream.
   /// @param out the output stream.
-  /// @param name the form type of the chunk (FourCC).
+  /// @param fourcc the form type of the chunk (FourCC).
   /// @param size the length of the chunk data, in terms of bytes.
   /// @throws std::length_error The chunk size exceeds the maximum.
   /// @throws std::ios_base::failure An I/O error occurred.
   static void WriteHeader(std::ostream & out,
-      std::string name,
+      FourCC fourcc,
       size_type size);
 
 private:
   /// The form type of the chunk.
-  std::string name_;
+  FourCC fourcc_;
 
   /// A collection of pointers to each RIFFChunkInterface objects.
   std::vector<std::unique_ptr<RIFFChunkInterface>> chunks_;

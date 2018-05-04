@@ -62,9 +62,9 @@ public:
   /// Destructs the SFRIFFPgenChunk.
   virtual ~SFRIFFPgenChunk() = default;
 
-  /// @copydoc RIFFChunkInterface::name()
-  virtual std::string name() const override {
-    return "pgen";
+  /// @copydoc RIFFChunkInterface::fourcc()
+  virtual FourCC fourcc() const noexcept override {
+    return FourCC("pgen");
   }
 
   /// Returns the presets of this chunk.

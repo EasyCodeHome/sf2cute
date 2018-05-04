@@ -55,7 +55,7 @@ void SoundFontWriter::Write(const std::string & filename) {
 
 /// Writes the SoundFont to an output stream.
 void SoundFontWriter::Write(std::ostream & out) {
-  RIFF riff("sfbk");
+  RIFF riff(FourCC("sfbk"));
   riff.AddChunk(MakeInfoListChunk());
   riff.AddChunk(MakeSdtaListChunk());
   riff.AddChunk(MakePdtaListChunk());
@@ -69,48 +69,48 @@ void SoundFontWriter::Write(std::ostream && out) {
 
 /// Make an INFO chunk.
 std::unique_ptr<RIFFChunkInterface> SoundFontWriter::MakeInfoListChunk() {
-  std::unique_ptr<RIFFListChunk> info = std::make_unique<RIFFListChunk>("INFO");
+  std::unique_ptr<RIFFListChunk> info = std::make_unique<RIFFListChunk>(FourCC("INFO"));
 
   // Mandatory chunks:
 
-  info->AddSubchunk(MakeVersionChunk("ifil", SFVersionTag(2, 1)));
+  info->AddSubchunk(MakeVersionChunk(FourCC("ifil"), SFVersionTag(2, 1)));
 
-  info->AddSubchunk(MakeZSTRChunk("isng", file().sound_engine().substr(0, SoundFont::kInfoTextMaxLength)));
+  info->AddSubchunk(MakeZSTRChunk(FourCC("isng"), file().sound_engine().substr(0, SoundFont::kInfoTextMaxLength)));
 
-  info->AddSubchunk(MakeZSTRChunk("INAM", file().bank_name().substr(0, SoundFont::kInfoTextMaxLength)));
+  info->AddSubchunk(MakeZSTRChunk(FourCC("INAM"), file().bank_name().substr(0, SoundFont::kInfoTextMaxLength)));
 
   // Optional chunks:
 
   if (file().has_rom_name()) {
-    info->AddSubchunk(MakeZSTRChunk("irom", file().rom_name().substr(0, SoundFont::kInfoTextMaxLength)));
+    info->AddSubchunk(MakeZSTRChunk(FourCC("irom"), file().rom_name().substr(0, SoundFont::kInfoTextMaxLength)));
   }
 
   if (file().has_rom_version()) {
-    info->AddSubchunk(MakeVersionChunk("iver", file().rom_version()));
+    info->AddSubchunk(MakeVersionChunk(FourCC("iver"), file().rom_version()));
   }
 
   if (file().has_creation_date()) {
-    info->AddSubchunk(MakeZSTRChunk("ICRD", file().creation_date().substr(0, SoundFont::kInfoTextMaxLength)));
+    info->AddSubchunk(MakeZSTRChunk(FourCC("ICRD"), file().creation_date().substr(0, SoundFont::kInfoTextMaxLength)));
   }
 
   if (file().has_engineers()) {
-    info->AddSubchunk(MakeZSTRChunk("IENG", file().engineers().substr(0, SoundFont::kInfoTextMaxLength)));
+    info->AddSubchunk(MakeZSTRChunk(FourCC("IENG"), file().engineers().substr(0, SoundFont::kInfoTextMaxLength)));
   }
 
   if (file().has_product()) {
-    info->AddSubchunk(MakeZSTRChunk("IPRD", file().product().substr(0, SoundFont::kInfoTextMaxLength)));
+    info->AddSubchunk(MakeZSTRChunk(FourCC("IPRD"), file().product().substr(0, SoundFont::kInfoTextMaxLength)));
   }
 
   if (file().has_copyright()) {
-    info->AddSubchunk(MakeZSTRChunk("ICOP", file().copyright().substr(0, SoundFont::kInfoTextMaxLength)));
+    info->AddSubchunk(MakeZSTRChunk(FourCC("ICOP"), file().copyright().substr(0, SoundFont::kInfoTextMaxLength)));
   }
 
   if (file().has_comment()) {
-    info->AddSubchunk(MakeZSTRChunk("ICMT", file().comment().substr(0, SoundFont::kInfoTextMaxLength)));
+    info->AddSubchunk(MakeZSTRChunk(FourCC("ICMT"), file().comment().substr(0, SoundFont::kInfoTextMaxLength)));
   }
 
   if (file().has_software()) {
-    info->AddSubchunk(MakeZSTRChunk("ISFT", file().software().substr(0, SoundFont::kInfoTextMaxLength)));
+    info->AddSubchunk(MakeZSTRChunk(FourCC("ISFT"), file().software().substr(0, SoundFont::kInfoTextMaxLength)));
   }
 
   return std::move(info);
@@ -118,7 +118,7 @@ std::unique_ptr<RIFFChunkInterface> SoundFontWriter::MakeInfoListChunk() {
 
 /// Make a sdta chunk.
 std::unique_ptr<RIFFChunkInterface> SoundFontWriter::MakeSdtaListChunk() {
-  std::unique_ptr<RIFFListChunk> sdta = std::make_unique<RIFFListChunk>("sdta");
+  std::unique_ptr<RIFFListChunk> sdta = std::make_unique<RIFFListChunk>(FourCC("sdta"));
   sdta->AddSubchunk(std::make_unique<SFRIFFSmplChunk>(file().samples()));
   return std::move(sdta);
 }
@@ -138,7 +138,7 @@ std::unique_ptr<RIFFChunkInterface> SoundFontWriter::MakePdtaListChunk() {
   }
 
   // Constructs the pdta chunk and its subchunks.
-  std::unique_ptr<RIFFListChunk> pdta = std::make_unique<RIFFListChunk>("pdta");
+  std::unique_ptr<RIFFListChunk> pdta = std::make_unique<RIFFListChunk>(FourCC("pdta"));
   pdta->AddSubchunk(std::make_unique<SFRIFFPhdrChunk>(file().presets()));
   pdta->AddSubchunk(std::make_unique<SFRIFFPbagChunk>(file().presets()));
   pdta->AddSubchunk(std::make_unique<SFRIFFPmodChunk>(file().presets()));
@@ -152,19 +152,19 @@ std::unique_ptr<RIFFChunkInterface> SoundFontWriter::MakePdtaListChunk() {
 }
 
 /// Make a chunk with a version number.
-std::unique_ptr<RIFFChunkInterface> SoundFontWriter::MakeVersionChunk(std::string name, SFVersionTag version) {
+std::unique_ptr<RIFFChunkInterface> SoundFontWriter::MakeVersionChunk(FourCC fourcc, SFVersionTag version) {
   std::vector<char> data(4);
   WriteInt16L(&data[0], version.major_version);
   WriteInt16L(&data[2], version.minor_version);
-  return std::make_unique<RIFFChunk>(std::move(name), std::move(data));
+  return std::make_unique<RIFFChunk>(std::move(fourcc), std::move(data));
 }
 
 /// Make a chunk with a string.
-std::unique_ptr<RIFFChunkInterface> SoundFontWriter::MakeZSTRChunk(std::string name, std::string data) {
+std::unique_ptr<RIFFChunkInterface> SoundFontWriter::MakeZSTRChunk(FourCC fourcc, std::string data) {
   std::vector<char> zstr((data.size() + 1 + 1) & ~1);
   std::copy(data.begin(), data.end(), zstr.begin());
   std::fill(std::next(zstr.begin(), data.size()), zstr.end(), 0);
-  return std::make_unique<RIFFChunk>(std::move(name), std::move(zstr));
+  return std::make_unique<RIFFChunk>(std::move(fourcc), std::move(zstr));
 }
 
 } // namespace sf2cute

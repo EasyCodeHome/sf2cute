@@ -41,7 +41,7 @@ void SFRIFFPhdrChunk::Write(std::ostream & out) const {
 
   try {
     // Write the chunk header.
-    RIFFChunk::WriteHeader(out, name(), size_);
+    RIFFChunk::WriteHeader(out, fourcc(), size_);
 
     // Presets:
     size_t preset_bag_index = 0;
