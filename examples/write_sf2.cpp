@@ -1,5 +1,5 @@
 /// @file
-/// Writes SoundFont 2 file using SF2cute.
+/// Saves SoundFont 2 file using SF2cute.
 
 #include <algorithm>
 #include <memory>
@@ -25,7 +25,7 @@ std::vector<int16_t> MakePulseVector(int n) {
   return data;
 }
 
-/// Writes SoundFont 2 file using SF2cute.
+/// Saves SoundFont 2 file using SF2cute.
 /// @param argc Number of arguments. Not used.
 /// @param argv Argument vector. Not used.
 /// @return 0 if the SoundFont file is successfully written.
@@ -88,10 +88,9 @@ int main(int argc, char * argv[]) {
   PrintSoundFont(sf2);
 #endif
 
-  // Write SoundFont file.
+  // Save SoundFont file.
   try {
-    std::ofstream ofs("output.sf2", std::ios::binary);
-    sf2.Write(ofs);
+    sf2.Save("output.sf2");
     return 0;
   }
   catch (const std::fstream::failure & e) {

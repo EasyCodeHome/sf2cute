@@ -97,7 +97,7 @@ void SFRIFFIgenChunk::Write(std::ostream & out) const {
 
     // Write a padding byte if necessary.
     if (size_ % 2 != 0) {
-      InsertInt8(out, 0);
+      WriteInt8ToStream(out, 0);
     }
   }
   catch (const std::exception &) {
@@ -138,10 +138,10 @@ std::ostream & SFRIFFIgenChunk::WriteItem(std::ostream & out,
     GenAmountType amount) {
   // struct sfInstGenList:
   // SFGenerator sfGenOper;
-  InsertInt16L(out, static_cast<uint16_t>(op));
+  WriteInt16LToStream(out, static_cast<uint16_t>(op));
 
   // GenAmountType genAmount;
-  InsertInt16L(out, amount.value);
+  WriteInt16LToStream(out, amount.value);
 
   return out;
 }

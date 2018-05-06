@@ -69,7 +69,7 @@ void SFRIFFImodChunk::Write(std::ostream & out) const {
 
     // Write a padding byte if necessary.
     if (size_ % 2 != 0) {
-      InsertInt8(out, 0);
+      WriteInt8ToStream(out, 0);
     }
   }
   catch (const std::exception &) {
@@ -113,19 +113,19 @@ std::ostream & SFRIFFImodChunk::WriteItem(std::ostream & out,
     SFTransform transform_op) {
   // struct sfInstModList:
   // SFModulator sfModSrcOper;
-  InsertInt16L(out, uint16_t(source_op));
+  WriteInt16LToStream(out, uint16_t(source_op));
 
   // SFGenerator sfModDestOper;
-  InsertInt16L(out, uint16_t(destination_op));
+  WriteInt16LToStream(out, uint16_t(destination_op));
 
   // int16_t modAmount;
-  InsertInt16L(out, amount);
+  WriteInt16LToStream(out, amount);
 
   // SFModulator sfModAmtSrcOper;
-  InsertInt16L(out, uint16_t(amount_source_op));
+  WriteInt16LToStream(out, uint16_t(amount_source_op));
 
   // SFTransform sfModTransOper;
-  InsertInt16L(out, uint16_t(transform_op));
+  WriteInt16LToStream(out, uint16_t(transform_op));
 
   return out;
 }

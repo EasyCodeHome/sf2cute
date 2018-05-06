@@ -67,7 +67,7 @@ void SFRIFFPhdrChunk::Write(std::ostream & out) const {
 
     // Write a padding byte if necessary.
     if (size_ % 2 != 0) {
-      InsertInt8(out, 0);
+      WriteInt8ToStream(out, 0);
     }
   }
   catch (const std::exception &) {
@@ -107,22 +107,22 @@ std::ostream & SFRIFFPhdrChunk::WriteItem(std::ostream & out,
   }
 
   // uint16_t wPreset;
-  InsertInt16L(out, preset_number);
+  WriteInt16LToStream(out, preset_number);
 
   // uint16_t wBank;
-  InsertInt16L(out, bank);
+  WriteInt16LToStream(out, bank);
 
   // uint16_t wPresetBagNdx;
-  InsertInt16L(out, preset_bag_index);
+  WriteInt16LToStream(out, preset_bag_index);
 
   // uint32_t dwLibrary;
-  InsertInt32L(out, library);
+  WriteInt32LToStream(out, library);
 
   // uint32_t dwGenre;
-  InsertInt32L(out, genre);
+  WriteInt32LToStream(out, genre);
 
   // uint32_t dwMorphology;
-  InsertInt32L(out, morphology);
+  WriteInt32LToStream(out, morphology);
 
   return out;
 }

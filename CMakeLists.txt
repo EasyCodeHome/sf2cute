@@ -30,19 +30,20 @@ endif()
 
 set(SF2CUTE_PUBLIC_HDRS
     include/sf2cute.hpp
+    include/sf2cute/file.hpp
+    include/sf2cute/file_format_error.hpp
+    include/sf2cute/generator_item.hpp
+    include/sf2cute/instrument.hpp
+    include/sf2cute/instrument_zone.hpp
+    include/sf2cute/modulator.hpp
     include/sf2cute/modulator_item.hpp
+    include/sf2cute/modulator_key.hpp
     include/sf2cute/preset.hpp
     include/sf2cute/preset_zone.hpp
     include/sf2cute/sample.hpp
     include/sf2cute/types.hpp
     include/sf2cute/version.hpp
     include/sf2cute/zone.hpp
-    include/sf2cute/file.hpp
-    include/sf2cute/generator_item.hpp
-    include/sf2cute/instrument.hpp
-    include/sf2cute/instrument_zone.hpp
-    include/sf2cute/modulator.hpp
-    include/sf2cute/modulator_key.hpp
 )
 set(SF2CUTE_PRIVATE_HDRS
     src/sf2cute/byteio.hpp

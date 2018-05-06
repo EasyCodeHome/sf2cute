@@ -8,6 +8,7 @@
 #ifndef SF2CUTE_RIFF_HPP_
 #define SF2CUTE_RIFF_HPP_
 
+#include <cstddef>
 #include <utility>
 #include <algorithm>
 #include <memory>
@@ -43,6 +44,55 @@ public:
   virtual void Write(std::ostream & out) const = 0;
 };
 
+/// The RIFFChunkHeader class represents a RIFF chunk header.
+class RIFFChunkHeader {
+public:
+  /// Unsigned integer type for the chunk size.
+  using size_type = std::size_t;
+
+  /// Constructs a new empty RIFFChunkHeader.
+  RIFFChunkHeader() : size_(0) {
+  }
+
+  /// Constructs a new empty RIFFChunkHeader using the specified FourCC.
+  /// @param fourcc the FourCC of the chunk.
+  RIFFChunkHeader(FourCC fourcc) : fourcc_(fourcc), size_(0) {
+  }
+
+  /// Constructs a new RIFFChunkHeader using the specified FourCC and size.
+  RIFFChunkHeader(FourCC fourcc, size_type size) : fourcc_(fourcc), size_(size) {
+  }
+
+  /// Returns the FourCC of this chunk.
+  /// @return the FourCC of this chunk.
+  FourCC fourcc() const noexcept {
+    return fourcc_;
+  }
+
+  /// Returns the whole length of this chunk.
+  /// @return the length of this chunk including a chunk header, in terms of bytes.
+  size_type size() const noexcept {
+    return size_;
+  }
+
+  /// Sets the whole length of this chunk.
+  /// @param size the length of this chunk including a chunk header, in terms of bytes.
+  void set_size(size_type size) noexcept {
+    size_ = std::move(size);
+  }
+
+  /// Constructs a RIFFChunkHeader from a stream.
+  /// @param in the input stream.
+  /// @return the RIFF chunk header.
+  /// @throws std::ios_base::failure An I/O error occurred.
+  static RIFFChunkHeader FromStream(std::istream & in);
+
+private:
+  FourCC fourcc_;
+
+  size_type size_;
+};
+
 /// The RIFFChunk class represents a RIFF chunk.
 class RIFFChunk : public RIFFChunkInterface {
 public:
@@ -54,13 +104,13 @@ public:
   }
 
   /// Constructs a new empty RIFFChunk using the specified FourCC.
-  /// @param fourcc The FourCC of the chunk.
+  /// @param fourcc the FourCC of the chunk.
   explicit RIFFChunk(FourCC fourcc) :
     fourcc_(std::move(fourcc)) {
   }
 
   /// Constructs a new RIFFChunk using the specified FourCC and data.
-  /// @param fourcc The FourCC of the chunk.
+  /// @param fourcc the FourCC of the chunk.
   /// @param data The data of the chunk.
   RIFFChunk(FourCC fourcc, std::vector<char> data) :
     fourcc_(std::move(fourcc)),
@@ -179,8 +229,6 @@ public:
   virtual ~RIFFListChunk() = default;
 
   /// @copydoc RIFFChunkInterface::fourcc()
-  /// Returns the FourCC of this chunk.
-  /// @return the FourCC of this chunk.
   virtual FourCC fourcc() const noexcept override {
     return fourcc_;
   }

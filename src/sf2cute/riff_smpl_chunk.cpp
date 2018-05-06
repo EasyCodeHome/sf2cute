@@ -45,18 +45,18 @@ void SFRIFFSmplChunk::Write(std::ostream & out) const {
     for (const auto & sample : samples()) {
       // Write the samples.
       for (int16_t value : sample->data()) {
-        InsertInt16L(out, value);
+        WriteInt16LToStream(out, value);
       }
 
       // Write terminator samples.
       for (uint32_t index = 0; index < SFSample::kTerminatorSampleLength; index++) {
-        InsertInt16L(out, 0);
+        WriteInt16LToStream(out, 0);
       }
     }
 
     // Write a padding byte if necessary.
     if (size_ % 2 != 0) {
-      InsertInt8(out, 0);
+      WriteInt8ToStream(out, 0);
     }
   }
   catch (const std::exception &) {

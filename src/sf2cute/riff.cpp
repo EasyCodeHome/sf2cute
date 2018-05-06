@@ -11,13 +11,52 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include <ostream>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
+
+#include <sf2cute/file_format_error.hpp>
 
 #include "byteio.hpp"
 
 namespace sf2cute {
+
+/// Constructs a RIFFChunkHeader from a stream.
+RIFFChunkHeader RIFFChunkHeader::FromStream(std::istream & in) {
+  // Save exception bits of input stream.
+  const std::ios_base::iostate old_exception_bits = in.exceptions();
+  // Set exception bits to get input error as an exception.
+  in.exceptions(std::ios::badbit);
+
+  try {
+    // Read the chunk header.
+    char fourcc_[4];
+    in.read(fourcc_, 4);
+    if (!in.good()) {
+      throw FileFormatError("Not a valid RIFF chunk. Unable to read the FourCC.");
+    }
+
+    // Read the chunk size.
+    uint32_t size_;
+    ReadInt32LFromStream(in, &size_);
+    if (!in.good()) {
+      throw FileFormatError("Not a valid RIFF chunk. Unable to read the chunk size.");
+    }
+
+    // Recover exception bits of input stream.
+    in.exceptions(old_exception_bits);
+
+    return RIFFChunkHeader(FourCC(fourcc_), size_);
+  }
+  catch (const std::exception &) {
+    // Recover exception bits of input stream.
+    in.clear();
+    in.exceptions(old_exception_bits);
+
+    // Rethrow the exception.
+    throw;
+  }
+}
 
 /// Writes this chunk to the specified output stream.
 void RIFFChunk::Write(std::ostream & out) const {
@@ -35,11 +74,15 @@ void RIFFChunk::Write(std::ostream & out) const {
 
     // Write a padding byte if necessary.
     if (data_.size() % 2 != 0) {
-      InsertInt8(out, 0);
+      WriteInt8ToStream(out, 0);
     }
+
+    // Recover exception bits of output stream.
+    out.exceptions(old_exception_bits);
   }
   catch (const std::exception &) {
     // Recover exception bits of output stream.
+    out.clear();
     out.exceptions(old_exception_bits);
 
     // Rethrow the exception.
@@ -68,10 +111,14 @@ void RIFFChunk::WriteHeader(std::ostream & out,
     out.write(fourcc.data(), fourcc.size());
 
     // Write the chunk size.
-    InsertInt32L(out, static_cast<uint32_t>(size));
+    WriteInt32LToStream(out, static_cast<uint32_t>(size));
+
+    // Recover exception bits of output stream.
+    out.exceptions(old_exception_bits);
   }
   catch (const std::exception &) {
     // Recover exception bits of output stream.
+    out.clear();
     out.exceptions(old_exception_bits);
 
     // Rethrow the exception.
@@ -121,13 +168,17 @@ void RIFFListChunk::WriteHeader(std::ostream & out,
     out.write("LIST", 4);
 
     // Write the chunk size.
-    InsertInt32L(out, static_cast<uint32_t>(size));
+    WriteInt32LToStream(out, static_cast<uint32_t>(size));
 
     // Write the list type.
     out.write(fourcc.data(), fourcc.size());
+
+    // Recover exception bits of output stream.
+    out.exceptions(old_exception_bits);
   }
   catch (const std::exception &) {
     // Recover exception bits of output stream.
+    out.clear();
     out.exceptions(old_exception_bits);
 
     // Rethrow the exception.
@@ -150,9 +201,13 @@ void RIFF::Write(std::ostream & out) const {
     for (const auto & chunk : chunks_) {
       chunk->Write(out);
     }
+
+    // Recover exception bits of output stream.
+    out.exceptions(old_exception_bits);
   }
   catch (const std::exception &) {
     // Recover exception bits of output stream.
+    out.clear();
     out.exceptions(old_exception_bits);
 
     // Rethrow the exception.
@@ -179,13 +234,17 @@ void RIFF::WriteHeader(std::ostream & out,
     out.write("RIFF", 4);
 
     // Write the file size.
-    InsertInt32L(out, static_cast<uint32_t>(size));
+    WriteInt32LToStream(out, static_cast<uint32_t>(size));
 
     // Write the form type.
     out.write(fourcc.data(), fourcc.size());
+
+    // Recover exception bits of output stream.
+    out.exceptions(old_exception_bits);
   }
   catch (const std::exception &) {
     // Recover exception bits of output stream.
+    out.clear();
     out.exceptions(old_exception_bits);
 
     // Rethrow the exception.

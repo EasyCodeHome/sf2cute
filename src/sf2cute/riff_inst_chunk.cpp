@@ -65,7 +65,7 @@ void SFRIFFInstChunk::Write(std::ostream & out) const {
 
     // Write a padding byte if necessary.
     if (size_ % 2 != 0) {
-      InsertInt8(out, 0);
+      WriteInt8ToStream(out, 0);
     }
   }
   catch (const std::exception &) {
@@ -100,7 +100,7 @@ std::ostream & SFRIFFInstChunk::WriteItem(std::ostream & out,
   }
 
   // uint16_t wInstBagNdx;
-  InsertInt16L(out, inst_bag_index);
+  WriteInt16LToStream(out, inst_bag_index);
 
   return out;
 }

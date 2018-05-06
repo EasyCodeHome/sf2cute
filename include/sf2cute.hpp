@@ -19,5 +19,6 @@
 #include "sf2cute/preset_zone.hpp"
 #include "sf2cute/preset.hpp"
 #include "sf2cute/file.hpp"
+#include "sf2cute/file_format_error.hpp"
 
 #endif // SF2CUTE_SF2CUTE_HPP_

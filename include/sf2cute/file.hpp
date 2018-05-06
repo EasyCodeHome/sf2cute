@@ -390,21 +390,39 @@ public:
     software_.clear();
   }
 
-  /// Writes the SoundFont to a file.
-  /// @param filename the name of the file to write to.
+  /// Saves the SoundFont to a file.
+  /// @param filename the name of the file to which to save this SoundFont.
   /// @throws std::logic_error The SoundFont has a structural error.
   /// @throws std::ios_base::failure An I/O error occurred.
-  void Write(const char * filename);
+  void Save(const char * filename);
 
-  /// @copydoc SoundFont::Write(const char *)
-  void Write(const std::string & filename);
+  /// @copydoc SoundFont::Save(const char *)
+  void Save(const std::string & filename);
 
-  /// Writes the SoundFont to an output stream.
-  /// @param out the output stream to write to.
-  void Write(std::ostream & out);
+  /// Saves the SoundFont to an output stream.
+  /// @param out the output stream where the file will be saved.
+  void Save(std::ostream & out);
 
-  /// @copydoc SoundFont::Write(std::ostream &)
-  void Write(std::ostream && out);
+  /// @copydoc SoundFont::Save(std::ostream &)
+  void Save(std::ostream && out);
+
+  /// Constructs the SoundFont from a file.
+  /// @param filename the name of the file to which to create the SoundFont.
+  /// @throws sf2cute::FileFormatError The SoundFont file has a structural error.
+  /// @throws std::ios_base::failure An I/O error occurred.
+  static SoundFont FromFile(const char * filename);
+
+  /// @copydoc SoundFont::FromFile(const char *)
+  static SoundFont FromFile(const std::string & filename);
+
+  /// Constructs the SoundFont from a stream.
+  /// @param in the stream that contains the data for the SoundFont.
+  /// @throws sf2cute::FileFormatError The SoundFont file has a structural error.
+  /// @throws std::ios_base::failure An I/O error occurred.
+  static SoundFont FromStream(std::istream & in);
+
+  /// @copydoc SoundFont::FromStream(std::istream &)
+  static SoundFont FromStream(std::istream && in);
 
 private:
   /// The default value of the target sound engine.

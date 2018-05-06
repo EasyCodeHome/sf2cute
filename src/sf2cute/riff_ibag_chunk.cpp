@@ -73,7 +73,7 @@ void SFRIFFIbagChunk::Write(std::ostream & out) const {
 
     // Write a padding byte if necessary.
     if (size_ % 2 != 0) {
-      InsertInt8(out, 0);
+      WriteInt8ToStream(out, 0);
     }
   }
   catch (const std::exception &) {
@@ -111,10 +111,10 @@ std::ostream & SFRIFFIbagChunk::WriteItem(std::ostream & out,
     uint16_t modulator_index) {
   // struct sfInstBag:
   // uint16_t wInstGenNdx;
-  InsertInt16L(out, generator_index);
+  WriteInt16LToStream(out, generator_index);
 
   // uint16_t wInstModNdx;
-  InsertInt16L(out, modulator_index);
+  WriteInt16LToStream(out, modulator_index);
 
   return out;
 }

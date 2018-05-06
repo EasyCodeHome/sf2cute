@@ -70,7 +70,7 @@ public:
 
   /// Returns the number of bytes of the FourCC.
   /// @return the number of bytes of the FourCC (always 4).
-  constexpr size_type size() const noexcept {
+  const size_type size() const noexcept {
     return 4;
   }
 

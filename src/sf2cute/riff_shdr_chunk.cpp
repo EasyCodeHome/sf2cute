@@ -94,7 +94,7 @@ void SFRIFFShdrChunk::Write(std::ostream & out) const {
 
     // Write a padding byte if necessary.
     if (size_ % 2 != 0) {
-      InsertInt8(out, 0);
+      WriteInt8ToStream(out, 0);
     }
   }
   catch (const std::exception &) {
@@ -130,31 +130,31 @@ std::ostream & SFRIFFShdrChunk::WriteItem(std::ostream & out,
   }
 
   // uint32_t dwStart;
-  InsertInt32L(out, start);
+  WriteInt32LToStream(out, start);
 
   // uint32_t dwEnd;
-  InsertInt32L(out, end);
+  WriteInt32LToStream(out, end);
 
   // uint32_t dwStartloop;
-  InsertInt32L(out, start_loop);
+  WriteInt32LToStream(out, start_loop);
 
   // uint32_t dwEndloop;
-  InsertInt32L(out, end_loop);
+  WriteInt32LToStream(out, end_loop);
 
   // uint32_t dwSampleRate;
-  InsertInt32L(out, sample_rate);
+  WriteInt32LToStream(out, sample_rate);
 
   // uint8_t byOriginalKey;
-  InsertInt8(out, original_key);
+  WriteInt8ToStream(out, original_key);
 
   // int8_t chCorrection;
-  InsertInt8(out, correction);
+  WriteInt8ToStream(out, correction);
 
   // uint16_t wSampleLink;
-  InsertInt16L(out, link);
+  WriteInt16LToStream(out, link);
 
   // SFSampleLink sfSampleType;
-  InsertInt16L(out, uint16_t(type));
+  WriteInt16LToStream(out, uint16_t(type));
 
   return out;
 }

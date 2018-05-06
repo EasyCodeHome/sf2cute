@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include <unordered_map>
+#include <iostream>
 #include <fstream>
 
 #include <sf2cute/sample.hpp>
@@ -18,8 +19,10 @@
 #include <sf2cute/instrument.hpp>
 #include <sf2cute/preset_zone.hpp>
 #include <sf2cute/preset.hpp>
+#include <sf2cute/file_format_error.hpp>
 
 #include "file_writer.hpp"
+#include "riff.hpp"
 
 namespace sf2cute {
 
@@ -374,27 +377,57 @@ void SoundFont::ClearSamples() noexcept {
   samples_.clear();
 }
 
-/// Writes the SoundFont to a file.
-void SoundFont::Write(const char * filename) {
+/// Saves the SoundFont to a file.
+void SoundFont::Save(const char * filename) {
   SoundFontWriter writer(*this);
   writer.Write(filename);
 }
 
-/// Writes the SoundFont to a file.
-void SoundFont::Write(const std::string & filename) {
+/// Saves the SoundFont to a file.
+void SoundFont::Save(const std::string & filename) {
   SoundFontWriter writer(*this);
   writer.Write(filename);
 }
 
-/// Writes the SoundFont to an output stream.
-void SoundFont::Write(std::ostream & out) {
+/// Saves the SoundFont to an output stream.
+void SoundFont::Save(std::ostream & out) {
   SoundFontWriter writer(*this);
   writer.Write(out);
 }
 
-/// Writes the SoundFont to an output stream.
-void SoundFont::Write(std::ostream && out) {
-  Write(out);
+/// Saves the SoundFont to an output stream.
+void SoundFont::Save(std::ostream && out) {
+  Save(out);
+}
+
+/// Constructs the SoundFont from a file.
+SoundFont SoundFont::FromFile(const char * filename) {
+  std::ifstream in;
+
+  in.exceptions(std::ios::badbit | std::ios::failbit);
+  in.open(filename, std::ios::binary);
+
+  return FromStream(in);
+}
+
+/// Constructs the SoundFont from a file.
+SoundFont SoundFont::FromFile(const std::string & filename) {
+  return FromFile(filename.c_str());
+}
+
+/// Constructs the SoundFont from a stream.
+SoundFont SoundFont::FromStream(std::istream & in) {
+  RIFFChunkHeader file_header(RIFFChunkHeader::FromStream(in));
+  if (file_header.fourcc() != FourCC("RIFF")) {
+    throw FileFormatError("Not a valid RIFF file.");
+  }
+
+  return SoundFont(); // TODO
+}
+
+/// Constructs the SoundFont from a stream.
+SoundFont SoundFont::FromStream(std::istream && in) {
+  return FromStream(in);
 }
 
 /// Sets backward references of every children elements.
