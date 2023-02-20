@@ -1,6 +1,6 @@
 SF2cute: C++ Library for SoundFont 2
 ====================================
-[![Travis Build Status](https://travis-ci.com/gocha/sf2cute.svg?branch=master)](https://travis-ci.com/gocha/sf2cute) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/elt3wbk82y8natuy/branch/master?svg=true)](https://ci.appveyor.com/project/gocha/sf2cute/branch/master)
+[![Travis Build Status](https://travis-ci.com/gocha/sf2cute.svg?branch=master)](https://travis-ci.com/gocha/sf2cute) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/elt3wbk82y8natuy/branch/master?svg=true)](https://ci.appveyor.com/project/EasyCodeHome/sf2cute/branch/master)
 
 SF2cute is a C++ library for writing SoundFont 2.
 
